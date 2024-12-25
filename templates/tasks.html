@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>TODO-LIST</title>
+
+    <style>
+      body {
+        background-color: #f4f6f9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      /* Navbar styling */
+      .navbar {
+        margin-bottom: 30px;
+      }
+
+      .navbar-brand {
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+
+      .navbar-nav .nav-link {
+        font-size: 1.1rem;
+      }
+
+      .navbar-nav .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+      }
+
+      /* Table styling */
+      .table {
+        margin-top: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .table thead {
+        background-color: #007bff;
+        color: white;
+      }
+
+      .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f9f9f9;
+      }
+
+      .table td, .table th {
+        vertical-align: middle;
+        text-align: center;
+        padding: 12px 15px;
+      }
+
+      .table td a {
+        color: #dc3545;
+        text-decoration: none;
+      }
+
+      .table td a:hover {
+        text-decoration: underline;
+      }
+
+      /* Button Styling */
+      .btn-outline-success {
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: background-color 0.3s, border-color 0.3s;
+      }
+
+      .btn-outline-success:hover {
+        background-color: #28a745;
+        border-color: #28a745;
+        color: white;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin-top: 50px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+
+      /* Footer styling */
+      footer {
+        background-color: #343a40;
+        color: #fff;
+        padding: 15px;
+        font-size: 0.9rem;
+        text-align: center;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">TODO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="tasks">Tasks</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Success Alert -->
+    {% if success %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> Your task has been added to the list.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <div class="container">
+      <h2 class="text-center my-3">Here are the Tasks of Yours</h2>
+
+      <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Task Title</th>
+            <th scope="col">Task Description</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ task.tasktitle }}</td>
+            <td>{{ task.taskdesc }}</td>
+            <td><a href="{% url 'task_delete' task.pk %}">Delete</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2024 TODO List | All rights reserved</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
